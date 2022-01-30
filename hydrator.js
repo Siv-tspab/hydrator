@@ -10,7 +10,8 @@ const P =  process.env.PRIVATE_KEYS.split(",") ;
 
 //WEB3 Config
 const web3 = new Web3(process.env.RPC_URL);
-const POLLING_INTERVAL = 1800000 // 30 mins in milliseconds;
+//rechecks every 10ins. Adjust accordingly in Milliseconds
+const POLLING_INTERVAL = 600000 // 10 mins in milliseconds;
 let i = 0;
 let y = 0;
 console.log("\nDDDDDDDDDDDDD      RRRRRRRRRRRRRRRRR   IIIIIIIIIIPPPPPPPPPPPPPPPPP   \nD::::::::::::DDD   R::::::::::::::::R  I::::::::IP::::::::::::::::P  \nD:::::::::::::::DD R::::::RRRRRR:::::R I::::::::IP::::::PPPPPP:::::P \nDDD:::::DDDDD:::::DRR:::::R     R:::::RII::::::IIPP:::::P     P:::::P\n  D:::::D    D:::::D R::::R     R:::::R  I::::I    P::::P     P:::::P\n  D:::::D     D:::::DR::::R     R:::::R  I::::I    P::::P     P:::::P\n  D:::::D     D:::::DR::::RRRRRR:::::R   I::::I    P::::PPPPPP:::::P \n  D:::::D     D:::::DR:::::::::::::RR    I::::I    P:::::::::::::PP  \n  D:::::D     D:::::DR::::RRRRRR:::::R   I::::I    P::::PPPPPPPPP    \n  D:::::D     D:::::DR::::R     R:::::R  I::::I    P::::P            \n  D:::::D     D:::::DR::::R     R:::::R  I::::I    P::::P            \n  D:::::D    D:::::D R::::R     R:::::R  I::::I    P::::P            \nDDD:::::DDDDD:::::DRR:::::R     R:::::RII::::::IIPP::::::PP          \nD:::::::::::::::DD R::::::R     R:::::RI::::::::IP::::::::P          \nD::::::::::::DDD   R::::::R     R:::::RI::::::::IP::::::::P          \nDDDDDDDDDDDDD      RRRRRRRR     RRRRRRRIIIIIIIIIIPPPPPPPPPP\n");          
@@ -45,14 +46,14 @@ P.forEach(element => {
 
                         // if over 0.5 DRIP available, hydrate
                         if(claimsAvailable > 512500000000000000) {
-                                console.log(`Time to compound ${web3.utils.fromWei(claimsAvailable.toString(),'ether')} DRIP! ${shortId(wallet.address)}`)
+                                console.log(`Time to compound ${web3.utils.fromWei(claimsAvailable.toString(),'ether')} DRIP!, ${shortId(wallet.address)}`)
                                 currently_compounding = true
                                 console.log(`gas Price: ${gasPrice}`)
                                 compound()
                                 setTimeout(() => {console.log("\nSleeping 1 second\n")}, 1000);
                         }
                         else{
-                                console.log(`Not ready to compound ${web3.utils.fromWei(claimsAvailable.toString(),'ether')} DRIP ${shortId(wallet.address)}`)
+                                console.log(`Not ready to compound ${web3.utils.fromWei(claimsAvailable.toString(),'ether')} DRIP, ${shortId(wallet.address)}`)
                         }
                 } catch (err){
                         console.log(`Didn't roll any Drip (err, ${shortId(wallet.address)})\n`)
@@ -70,10 +71,10 @@ P.forEach(element => {
                                                 gasPrice: gasPrice
                                         }
                                 )
-                                console.log(`Roll status: ${roll.status}, shortId(wallet.address)`)
+                                console.log(`Roll status: ${roll.status}, ${shortId(wallet.address)}`);
                         } catch (err){
                                 currently_compounding = false
-                                console.log(`Roll error ${err.message}`)
+                                console.log(`Roll error ${err.message}, ${shortId(wallet.address)}`)
                                 return
                         }
 
@@ -81,8 +82,8 @@ P.forEach(element => {
                 }
         }
 
-//rechecks every 30mins. Adjust accordingly in Milliseconds
 checkRollAvailability()
 setInterval(async () => { await checkRollAvailability() }, POLLING_INTERVAL)
 i++
 });
+
