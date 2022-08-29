@@ -1,18 +1,18 @@
-const fs = require("fs");
-const path = require("path");
-const Web3 = require("web3");
-const math = require("mathjs");
-require("dotenv").config();
+// CONFIG
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+import dotenv from "dotenv";
+dotenv.config();
 
-
-function shortId(str) {
-    return str.substr(0, 6) + "..." + str.substr(36, 42);
-}
+// DEPENDENCIES
+import Web3 from "web3";
+import { floor } from "mathjs";
+import { getPrivateKeys, shortId } from "./utils.js";
 
 
 //WEB3 Config
 const web3 = new Web3(process.env.RPC_URL); // INIT WEB3
-const PRIVATE_KEYS = process.env.PRIVATE_KEYS.split(","); // GET ALL PRIVATE_KEYS
+const PRIVATE_KEYS = getPrivateKeys().split(","); // GET ALL PRIVATE_KEYS
 const FAUCET_CONTRACT = process.env.FAUCET_CONTRACT; // CONTRACT ADDRESS
 const ABI = require("./ABI.json"); // SMART CONTRACT ABI
 const contract = new web3.eth.Contract(ABI, FAUCET_CONTRACT); // CONTRACT OBJECTS
@@ -35,7 +35,7 @@ PRIVATE_KEYS.forEach((element, index) => {
 
             var gasPrice = await web3.eth.getGasPrice();
             var block = await web3.eth.getBlock("latest");
-            var gasLimit = math.floor(block.gasLimit / block.transactions.length);
+            var gasLimit = floor(block.gasLimit / block.transactions.length);
 
             const txCost = gasPrice * gasLimit;
             console.log("Total gas cost: ", txCost);

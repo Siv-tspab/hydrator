@@ -3,11 +3,12 @@
 	"version": "1.0.0",
 	"description": "This server is meant to run automatic hydratation on your DRIP account.",
 	"main": "index.js",
+	"type": "module",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node index.js"
 	},
-	"author": "1tchyBa11z & Krampus",
+	"author": "1tchyBa11z & Krampus || Siv",
 	"license": "BSD",
 	"dependencies": {
 		"axios": "^0.21.1",
