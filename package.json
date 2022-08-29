@@ -1,11 +1,11 @@
 {
 	"name": "hydrator",
 	"version": "1.0.0",
-	"description": "This Bot will hydrate / compound your DRIP accounts, it checks every 10 minutes in case the available amount is over 0.5 DRIP. If it is, it gets compounded.",
+	"description": "This server is meant to run automatic hydratation on your DRIP account.",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "node hydrator.js"
+		"start": "node index.js"
 	},
 	"author": "1tchyBa11z & Krampus",
 	"license": "BSD",
