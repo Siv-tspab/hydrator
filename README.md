@@ -7,10 +7,10 @@ Enter your private key(s) into the .env file provided. The script is designed to
 
 Consider changing your RPC within the .env file.
 
-## Build
+## Dev
 
 ```
-yarn build
+yarn dev
 ```
 
 __Never share your private keys with anyone, this equates to giving all rights over the account in question.__
@@ -21,5 +21,5 @@ __Anyone that has access to these private keys can take any funds located within
 ## Run
 
 ```
-node hydrate.js
+yarn start
 ```
